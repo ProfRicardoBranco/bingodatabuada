@@ -15,6 +15,9 @@ let sorteioHabilitado = true; // Variável global para controlar se o sorteio es
 novoJogoBtn.addEventListener('click', () => {
     reiniciarJogo();
     numeroSorteadoText.innerHTML = ""; // Limpa o conteúdo do elemento
+    sortearBtn.disabled = false; // Habilita o botão de sortear
+    sortearBtn.style.backgroundColor = ''; // Remove a cor de fundo personalizada
+    sorteioHabilitado = true; // Habilita o sorteio
 });
 
 // Evento de clique no botão "Sortear"
@@ -45,7 +48,9 @@ sortearBtn.addEventListener('click', () => {
     atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
 
     // Desabilita o botão de sortear após o sorteio
-    sorteioHabilitado = false;
+    sortearBtn.disabled = true;
+    sortearBtn.style.backgroundColor = '#6c757d'; // Cor cinza azulado
+    sorteioHabilitado = false; // Desabilita o sorteio
 });
 
 // Evento de clique no botão "Marcar Resultado"
