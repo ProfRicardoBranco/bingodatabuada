@@ -68,6 +68,12 @@ marcarResultadoBtn.addEventListener('click', () => {
     }
 });
 
+// Evento de clique no botão "Novo Jogo"
+novoJogoBtn.addEventListener('click', () => {
+    reiniciarJogo();
+    numeroSorteadoText.innerHTML = ""; // Limpa o conteúdo do elemento
+});
+
 // Função para atualizar o texto com o número sorteado na tela
 function atualizarNumeroSorteado(numero) {
     numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>O número sorteado foi:</span><br/>" + 
@@ -90,5 +96,5 @@ function marcarNumeroSorteado(indice) {
     }
 }
 
-// Função para iniciar o jogo
-reiniciarJogo();
+// Chama a função reiniciarJogo() quando a página é carregada
+document.addEventListener('DOMContentLoaded', reiniciarJogo);
