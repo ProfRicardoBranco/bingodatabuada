@@ -107,20 +107,18 @@ function atualizarNumeroSorteado(numero) {
     // Obtém os fatores primos do número sorteado
     const fatoresPrimos = decomporEmFatoresPrimos(numero);
 
-    // Constrói a string com a multiplicação dos fatores primos
-    let multiplicacaoFatoresPrimos = "";
-    for (let i = 0; i < fatoresPrimos.length; i++) {
-        multiplicacaoFatoresPrimos += fatoresPrimos[i];
-        if (i !== fatoresPrimos.length - 1) {
-            multiplicacaoFatoresPrimos += " * ";
-        }
-    }
+    // Filtra os fatores primos menores que 10
+    const fatoresPrimosMenoresQue10 = fatoresPrimos.filter(primo => primo < 10);
 
-    // Exibe a multiplicação dos fatores primos na tela
-    numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação dos fatores primos de " + 
+    // Seleciona aleatoriamente dois fatores primos
+    const fator1 = fatoresPrimosMenoresQue10[Math.floor(Math.random() * fatoresPrimosMenoresQue10.length)];
+    const fator2 = fatoresPrimosMenoresQue10[Math.floor(Math.random() * fatoresPrimosMenoresQue10.length)];
+
+    // Exibe a multiplicação dos dois fatores primos na tela
+    numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação dos fatores primos menores que 10 de " + 
                                     numero + " é:</span><br/>" + 
                                     "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
-                                    multiplicacaoFatoresPrimos + 
+                                    fator1 + " * " + fator2 + 
                                     "</span>";
 }
 
