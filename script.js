@@ -127,7 +127,7 @@ function atualizarNumeroSorteado(numero) {
     if (fator1 && fator2) {
         numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>Dê o resultado de: " + "<br/>" + 
                                         "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
-                                        fator1 + " * " + fator2 +  
+                                        fator1 + " X " + fator2 +  
                                         "</span>";
     } else {
         numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>Não foi possível encontrar fatores menores que 10 da tabuada de 2 a 9 para o número " + numero + ".</span>";
