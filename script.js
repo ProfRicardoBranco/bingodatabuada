@@ -87,35 +87,26 @@ function gerarNumeroAleatorio() {
 
 // Função para atualizar o texto com o número sorteado na tela
 function atualizarNumeroSorteado(numero) {
-    // Função para decompor o número em fatores primos
-    function decomporEmFatoresPrimos(n) {
-        const fatoresPrimos = [];
-        let divisor = 2;
-
-        while (n >= 2) {
-            if (n % divisor === 0) {
-                fatoresPrimos.push(divisor);
-                n = n / divisor;
-            } else {
-                divisor++;
-            }
+    // Função para verificar se um número é primo
+    function ehPrimo(num) {
+        for (let i = 2, raiz = Math.sqrt(num); i <= raiz; i++) {
+            if (num % i === 0) return false;
         }
-
-        return fatoresPrimos;
+        return num > 1;
     }
 
-    // Obtém os fatores primos do número sorteado
-    const fatoresPrimos = decomporEmFatoresPrimos(numero);
-
-    // Filtra os fatores primos menores que 10
-    const fatoresPrimosMenoresQue10 = fatoresPrimos.filter(primo => primo < 10);
-
-    // Seleciona aleatoriamente dois fatores primos
-    const fator1 = fatoresPrimosMenoresQue10[Math.floor(Math.random() * fatoresPrimosMenoresQue10.length)];
-    const fator2 = fatoresPrimosMenoresQue10[Math.floor(Math.random() * fatoresPrimosMenoresQue10.length)];
+    // Encontra dois fatores primos menores que 10 que multiplicados resultam no número sorteado
+    let fator1, fator2;
+    for (let i = 2; i < 10; i++) {
+        if (numero % i === 0 && ehPrimo(i) && ehPrimo(numero / i)) {
+            fator1 = i;
+            fator2 = numero / i;
+            break;
+        }
+    }
 
     // Exibe a multiplicação dos dois fatores primos na tela
-    numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação dos fatores primos menores que 10 de " + 
+    numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação de dois fatores primos menores que 10 de " + 
                                     numero + " é:</span><br/>" + 
                                     "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
                                     fator1 + " * " + fator2 + 
