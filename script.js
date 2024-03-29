@@ -50,7 +50,7 @@ sortearBtn.addEventListener('click', () => {
     // Desabilita o botão de sortear após o sorteio
     sortearBtn.disabled = true;
     sortearBtn.style.backgroundColor = '#6c757d'; // Cor cinza azulado
-    sortearBtn.style.color = '#6c757d'
+    sortearBtn.style.color = '#5e758a'
     sorteioHabilitado = false; // Desabilita o sorteio
 });
 
