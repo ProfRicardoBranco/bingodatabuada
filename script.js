@@ -1,4 +1,5 @@
 const maximoBingo = 75; // Definindo o número máximo do bingo
+const numerosNaTabela = []; // Array para armazenar os números na tabela
 
 document.addEventListener('DOMContentLoaded', function() {
     reiniciarJogo();
@@ -22,22 +23,29 @@ function reiniciarJogo() {
     // Limpa o conjunto de números sorteados
     numerosSorteados.clear();
 
-    // Preenche a tabela novamente
+    // Preenche o array com os números na tabela
     for (let tabuada = 2; tabuada <= 9; tabuada++) {
-        const row = bingoTable.insertRow();
         for (let multiplicador = 1; multiplicador <= 10; multiplicador++) {
             const resultado = tabuada * multiplicador;
+            numerosNaTabela.push(resultado);
+        }
+    }
+
+    // Preenche a tabela
+    for (let i = 0; i < numerosNaTabela.length; i += 10) {
+        const row = bingoTable.insertRow();
+        for (let j = i; j < i + 10; j++) {
             const cell = row.insertCell();
-            cell.textContent = resultado;
+            cell.textContent = numerosNaTabela[j];
             cell.style.padding = '5px 10px';
             cell.style.fontSize = '40px';
             cell.style.fontWeight = 'bold';
 
-            if (multiplicador % 2 === 0) {
-                // Se o multiplicador for par, define a cor de fundo como branco
+            if ((j + 1) % 2 === 0) {
+                // Se o número for par, define a cor de fundo como branco
                 cell.style.backgroundColor = '#ffffff';
             } else {
-                // Se o multiplicador for ímpar, define a cor de fundo como cinza claro
+                // Se o número for ímpar, define a cor de fundo como cinza claro
                 cell.style.backgroundColor = '#f2f2f2';
             }
         }
@@ -46,14 +54,15 @@ function reiniciarJogo() {
 
 // Função para gerar um número aleatório
 function gerarNumeroAleatorio() {
-    return Math.floor(Math.random() * maximoBingo) + 1;
+    return Math.floor(Math.random() * numerosNaTabela.length);
 }
 
 // Função para marcar o número sorteado na tabela
-function marcarNumeroSorteado(numeroSorteado) {
+function marcarNumeroSorteado(indice) {
+    const numeroSorteado = numerosNaTabela[indice];
     const cells = bingoTable.querySelectorAll('td');
     for (const cell of cells) {
-        if (cell.textContent === String(numeroSorteado)) {
+        if (parseInt(cell.textContent) === numeroSorteado) {
             cell.classList.add('marked');
             cell.style.backgroundColor = '#28a745'; // Altera a cor de fundo da célula
             break;
@@ -67,15 +76,15 @@ sortearBtn.addEventListener('click', () => {
         return;
     }
 
-    let numeroSorteado;
+    let indiceSorteado;
     
     do {
-        numeroSorteado = gerarNumeroAleatorio();
-    } while (numerosSorteados.has(numeroSorteado));
+        indiceSorteado = gerarNumeroAleatorio();
+    } while (numerosSorteados.has(numerosNaTabela[indiceSorteado]));
 
-    numerosSorteados.add(numeroSorteado);
-    marcarNumeroSorteado(numeroSorteado);
-    atualizarNumeroSorteado(numeroSorteado);
+    numerosSorteados.add(numerosNaTabela[indiceSorteado]);
+    marcarNumeroSorteado(indiceSorteado);
+    atualizarNumeroSorteado(numerosNaTabela[indiceSorteado]);
 });
 
 novoJogoBtn.addEventListener('click', () => {
