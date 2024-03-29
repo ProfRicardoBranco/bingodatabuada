@@ -1,6 +1,6 @@
 // const maximoBingo = 75; // Não é mais necessário
 // const numerosNaTabela = []; // Array para armazenar os números na tabela
-const arrayNumerosPossiveis = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 7, 14, 21, 28, 35, 42, 49, 56, 63, 70, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 6, 12, 18, 24, 30, 36, 42, 48, 54, 60, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 9, 18, 27, 36, 45, 54, 63, 72, 81, 90];
+const arrayNumerosPossiveis = [6, 7, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 24, 25, 27, 28, 30, 32, 35, 36, 40, 42, 45, 48, 50, 54, 56, 60, 63, 64, 70, 72, 80, 81, 90];
 
 // document.addEventListener('DOMContentLoaded', function() {
 //     reiniciarJogo();
@@ -20,7 +20,7 @@ function reiniciarJogo() {
     numerosSorteados.clear();
 
     // Preenche a tabela com os números possíveis
-    for (let i = 0; i < arrayNumerosPossiveis.length; i += 10) {
+    for (let i = 0; i < arrayNumerosPossiveis.length; i += 1) {
         const row = bingoTable.insertRow();
         for (let j = i; j < i + 10 && j < arrayNumerosPossiveis.length; j++) {
             const cell = row.insertCell();
