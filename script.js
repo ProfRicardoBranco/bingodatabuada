@@ -108,12 +108,19 @@ function atualizarNumeroSorteado(numero) {
     let fator1, fator2;
 
     // Procura por um fator que seja da tabuada de 2 a 9 e menor que 10
-    for (let i = 2; i <= 10; i++) {
+    for (let i = 2; i <= 9; i++) {
         if (numero % i === 0 && numero / i <= 9) {
             fator1 = i;
             fator2 = numero / i;
             break;
         }
+    }
+
+    // Se o primeiro fator for 10, inverte os fatores
+    if (fator1 === 10) {
+        const temp = fator1;
+        fator1 = fator2;
+        fator2 = temp;
     }
 
     // Exibe a multiplicação dos dois fatores na tela
@@ -126,6 +133,7 @@ function atualizarNumeroSorteado(numero) {
         numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>Não foi possível encontrar fatores menores que 10 da tabuada de 2 a 9 para o número " + numero + ".</span>";
     }
 }
+
 
 
 // Função para marcar o número sorteado na tabela
