@@ -33,6 +33,12 @@ sortearBtn.addEventListener('click', () => {
     numerosSorteados.add(indiceSorteado);
     ultimoIndiceSorteado = indiceSorteado;
     atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
+    
+    if (ultimoIndiceSorteado !== undefined) {
+        marcarNumeroSorteado(ultimoIndiceSorteado);
+    }
+
+
 });
 
 // Evento de clique no botão "Marcar Resultado"
