@@ -51,13 +51,14 @@ function gerarNumeroAleatorio() {
 
 // Função para marcar o número sorteado na tabela
 function marcarNumeroSorteado(numeroSorteado) {
-    const cellIndex = numeroSorteado - 1; // Índice da célula na tabela
-    const rowNumber = Math.floor(cellIndex / 10); // Número da linha
-    const colNumber = cellIndex % 10; // Número da coluna
-    
-    const cell = bingoTable.rows[rowNumber].cells[colNumber];
-    cell.classList.add('marked');
-    cell.style.backgroundColor = '#28a745'; // Altera a cor de fundo da célula
+    const cells = bingoTable.querySelectorAll('td');
+    for (const cell of cells) {
+        if (cell.textContent === String(numeroSorteado)) {
+            cell.classList.add('marked');
+            cell.style.backgroundColor = '#28a745'; // Altera a cor de fundo da célula
+            break;
+        }
+    }
 }
 
 sortearBtn.addEventListener('click', () => {
