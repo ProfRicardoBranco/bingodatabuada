@@ -1,45 +1,93 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const numerosContainer = document.getElementById("numerosContainer");
-    const resultado = document.getElementById("resultado");
-    const sortearBtn = document.getElementById("sortear");
-    const tabuadaTable = document.getElementById("tabuada");
+const maximoBingo = 75; // Definindo o número máximo do bingo
 
-    const tabuadas = [2, 3, 4, 5, 6, 7, 8, 9];
-    const numerosPossiveis = [];
+document.addEventListener('DOMContentLoaded', function() {
+    reiniciarJogo();
+});
 
-    // Preencher array com todos os resultados possíveis
-    for (const tabuada of tabuadas) {
-        for (let i = 1; i <= 10; i++) {
-            numerosPossiveis.push(tabuada * i);
+const bingoTable = document.getElementById('bingoTable');
+const sortearBtn = document.getElementById('sortearBtn');
+const novoJogoBtn = document.getElementById('novoJogoBtn');
+const numerosSorteados = new Set(); // Usando um conjunto para garantir números únicos
+
+// Função para verificar se todos os números já foram sorteados
+function todosSorteados() {
+    return numerosSorteados.size === maximoBingo;
+}
+
+// Função para limpar a tabela e reiniciar o jogo
+function reiniciarJogo() {
+    // Limpa a tabela
+    bingoTable.innerHTML = '';
+
+    // Limpa o conjunto de números sorteados
+    numerosSorteados.clear();
+
+    // Preenche a tabela novamente
+    for (let tabuada = 2; tabuada <= 9; tabuada++) {
+        const row = bingoTable.insertRow();
+        for (let multiplicador = 1; multiplicador <= 10; multiplicador++) {
+            const resultado = tabuada * multiplicador;
+            const cell = row.insertCell();
+            cell.textContent = resultado;
+            cell.style.padding = '5px 10px';
+            cell.style.fontSize = '40px';
+            cell.style.fontWeight = 'bold';
+
+            if (multiplicador % 2 === 0) {
+                // Se o multiplicador for par, define a cor de fundo como branco
+                cell.style.backgroundColor = '#ffffff';
+            } else {
+                // Se o multiplicador for ímpar, define a cor de fundo como cinza claro
+                cell.style.backgroundColor = '#f2f2f2';
+            }
         }
     }
+}
 
-    // Função para sortear um número
-    function sortearNumero() {
-        // Limpar células marcadas
-        const markedCells = document.querySelectorAll(".marked");
-        markedCells.forEach(cell => cell.classList.remove("marked"));
+// Função para gerar um número aleatório
+function gerarNumeroAleatorio() {
+    return Math.floor(Math.random() * maximoBingo) + 1;
+}
 
-        // Sortear um número aleatório
-        const numeroSorteado = numerosPossiveis[Math.floor(Math.random() * numerosPossiveis.length)];
+// Função para marcar o número sorteado na tabela
+function marcarNumeroSorteado(numeroSorteado) {
+    const cellIndex = numeroSorteado - 1; // Índice da célula na tabela
+    const rowNumber = Math.floor(cellIndex / 10); // Número da linha
+    const colNumber = cellIndex % 10; // Número da coluna
+    
+    const cell = bingoTable.rows[rowNumber].cells[colNumber];
+    cell.classList.add('marked');
+    cell.style.backgroundColor = '#28a745'; // Altera a cor de fundo da célula
+}
 
-        // Marcar a célula correspondente na tabela
-        const rowIndex = Math.ceil(numeroSorteado / 10) - 1;
-        const colIndex = (numeroSorteado % 10 === 0) ? 9 : (numeroSorteado % 10) - 1;
-        const cell = tabuadaTable.rows[rowIndex].cells[colIndex];
-        cell.classList.add("marked");
-
-        // Atualizar campo de texto com a multiplicação correspondente
-        const tabuada = tabuadas[colIndex];
-        resultado.value = `Qual é o resultado de ${tabuada} &times; ${Math.ceil(numeroSorteado / 10)}?`;
+sortearBtn.addEventListener('click', () => {
+    if (todosSorteados()) {
+        alert('Todos os números já foram sorteados!');
+        return;
     }
 
-    // Evento para sortear número ao clicar no botão
-    sortearBtn.addEventListener("click", sortearNumero);
+    let numeroSorteado;
+    
+    do {
+        numeroSorteado = gerarNumeroAleatorio();
+    } while (numerosSorteados.has(numeroSorteado));
 
-    // Evento para iniciar novo jogo
-    document.getElementById("novoJogo").addEventListener("click", function() {
-        resultado.value = "";
-        sortearNumero(); // Limpar células marcadas ao iniciar novo jogo
-    });
+    numerosSorteados.add(numeroSorteado);
+    marcarNumeroSorteado(numeroSorteado);
+    atualizarNumeroSorteado(numeroSorteado);
 });
+
+novoJogoBtn.addEventListener('click', () => {
+    reiniciarJogo();
+    numeroSorteadoText.innerHTML = ""; // Limpa o conteúdo do elemento
+});
+
+const numeroSorteadoText = document.getElementById('numeroSorteado');
+
+// Função para atualizar o texto com o número sorteado na tela
+function atualizarNumeroSorteado(numero) {
+    numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>O número sorteado foi:</span><br/>" + 
+                                   "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
+                                   numero + 
+                                   "</span>";
+}

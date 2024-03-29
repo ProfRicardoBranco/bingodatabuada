@@ -1,68 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bingo</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            height: 100%;
-        }
-        .container {
-            display: flex;
-            height: 100%;
-        }
-        .column {
-            width: 25%;
-            padding: 20px;
-        }
-        #logo {
-            max-width: 100%;
-            height: auto;
-        }
-        #resultado {
-            margin-top: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
-        .marked {
-            background-color: yellow;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bingo</title>
+<link rel="stylesheet" href="gpt.css">
 </head>
 <body>
-    <div class="container">
-        <div class="column">
-            <button id="novoJogo">Novo Jogo</button>
-            <img id="logo" src="logo.jpg" alt="Logo">
-            <button id="sortear">Sortear</button>
-            <input type="text" id="resultado" readonly>
-        </div>
-        <div class="column" id="numerosContainer">
-            <table id="tabuada">
-                <tr>
-                    <th>&times;2</th>
-                    <th>&times;3</th>
-                    <th>&times;4</th>
-                    <th>&times;5</th>
-                    <th>&times;6</th>
-                    <th>&times;7</th>
-                    <th>&times;8</th>
-                    <th>&times;9</th>
-                </tr>
-            </table>
+
+<div class="container">
+    <!-- Coluna com o botão "Novo Jogo" -->
+    <div class="column" id="buttonSelectorColumn">
+        <button id="novoJogoBtn">Novo Jogo</button> <!-- Movido o botão "Novo Jogo" para cima -->
+        <!-- Colocado a logo abaixo do botão "Novo Jogo" -->
+        <img src="LogoSanto.jpg" alt="Logo Santo Antônio" class="logo-imagem"> <!-- Adiciona a imagem -->
+        <!-- Colocado a div dos botões de sorteio abaixo da logo -->
+        <div class="button-selector-wrapper">
+            <button id="sortearBtn">Sortear</button> <!-- Adiciona o botão "Sortear" -->
+            <p> </p> <!-- Adiciona linha em branco abaixo dos botões -->
+            <p id="numeroSorteado" class="numero-sorteado"></p> <!-- Aqui será exibido o número sorteado -->
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Coluna com a tabela gerada pelo JavaScript -->
+    <div class="column" id="tableColumn">
+        <table id="bingoTable"></table>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
