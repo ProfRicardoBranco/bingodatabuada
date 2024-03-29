@@ -87,27 +87,20 @@ function gerarNumeroAleatorio() {
 
 // Função para atualizar o texto com o número sorteado na tela
 function atualizarNumeroSorteado(numero) {
-    // Função para verificar se um número é primo
-    function ehPrimo(num) {
-        for (let i = 2, raiz = Math.sqrt(num); i <= raiz; i++) {
-            if (num % i === 0) return false;
-        }
-        return num > 1;
-    }
-
-    // Encontra dois fatores primos menores que 10 que multiplicados resultam no número sorteado
-    let fator1, fator2;
-    for (let i = 2; i < 10; i++) {
-        if (numero % i === 0 && ehPrimo(i) && ehPrimo(numero / i)) {
+    // Encontra um fator da tabuada de 2 a 9
+    let fator1;
+    for (let i = 2; i <= 9; i++) {
+        if (numero % i === 0) {
             fator1 = i;
-            fator2 = numero / i;
             break;
         }
     }
 
-    // Exibe a multiplicação dos dois fatores primos na tela
-    numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação de dois fatores primos menores que 10 de " + 
-                                    numero + " é:</span><br/>" + 
+    // Calcula o segundo fator como o resultado da divisão exata do número sorteado pelo primeiro fator
+    const fator2 = numero / fator1;
+
+    // Exibe a multiplicação dos dois fatores na tela
+    numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação de " + numero + " é:</span><br/>" + 
                                     "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
                                     fator1 + " * " + fator2 + 
                                     "</span>";
