@@ -45,19 +45,6 @@ function gerarNumeroAleatorio() {
     return Math.floor(Math.random() * arrayNumerosPossiveis.length);
 }
 
-// Função para marcar o número sorteado na tabela
-function marcarNumeroSorteado(indice) {
-    const numeroSorteado = arrayNumerosPossiveis[indice];
-    const cells = bingoTable.querySelectorAll('td');
-    for (const cell of cells) {
-        if (parseInt(cell.textContent) === numeroSorteado) {
-            cell.classList.add('marked');
-            cell.style.backgroundColor = '#28a745'; // Altera a cor de fundo da célula
-            break;
-        }
-    }
-}
-
 sortearBtn.addEventListener('click', () => {
     if (numerosSorteados.size === arrayNumerosPossiveis.length) {
         alert('Todos os números já foram sorteados!');
@@ -88,4 +75,18 @@ function atualizarNumeroSorteado(numero) {
                                    "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
                                    numero + 
                                    "</span>";
+}
+
+
+function marcarNumeroSorteado(indice) {
+    const numeroSorteado = arrayNumerosPossiveis[indice];
+    console.log('Marcando número sorteado:', numeroSorteado);
+    const cells = bingoTable.querySelectorAll('td');
+    for (const cell of cells) {
+        if (parseInt(cell.textContent) === numeroSorteado) {
+            cell.classList.add('marked');
+            cell.style.backgroundColor = '#28a745'; // Altera a cor de fundo da célula
+            break;
+        }
+    }
 }
