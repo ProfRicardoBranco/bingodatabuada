@@ -1,15 +1,10 @@
-// const maximoBingo = 75; // Não é mais necessário
-// const numerosNaTabela = []; // Array para armazenar os números na tabela
-const arrayNumerosPossiveis = [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 24, 25, 27, 28, 30, 32, 35, 36, 40, 42, 45, 48, 54, 56, 63, 64, 72, 81];
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     reiniciarJogo();
-// });
-
 const bingoTable = document.getElementById('bingoTable');
 const sortearBtn = document.getElementById('sortearBtn');
 const novoJogoBtn = document.getElementById('novoJogoBtn');
+const marcarResultadoBtn = document.getElementById('btnMarcarResultado'); // Botão "Marcar Resultado"
+const numeroSorteadoText = document.getElementById('numeroSorteado');
 const numerosSorteados = new Set(); // Usando um conjunto para garantir números únicos
+let ultimoIndiceSorteado = null; // Variável global para armazenar o último índice sorteado
 
 // Função para limpar a tabela e reiniciar o jogo
 function reiniciarJogo() {
@@ -19,27 +14,26 @@ function reiniciarJogo() {
     // Limpa o conjunto de números sorteados
     numerosSorteados.clear();
 
-// Preenche a tabela com os números possíveis
-const numerosPorLinha = 6; // Quantidade de números por linha
-for (let i = 0; i < arrayNumerosPossiveis.length; i += numerosPorLinha) {
-    const row = bingoTable.insertRow();
-    for (let j = i; j < i + numerosPorLinha && j < arrayNumerosPossiveis.length; j++) {
-        const cell = row.insertCell();
-        cell.textContent = arrayNumerosPossiveis[j];
-        cell.style.padding = '5px 10px';
-        cell.style.fontSize = '40px';
-        cell.style.fontWeight = 'bold';
+    // Preenche a tabela com os números possíveis
+    const numerosPorLinha = 6; // Quantidade de números por linha
+    for (let i = 0; i < arrayNumerosPossiveis.length; i += numerosPorLinha) {
+        const row = bingoTable.insertRow();
+        for (let j = i; j < i + numerosPorLinha && j < arrayNumerosPossiveis.length; j++) {
+            const cell = row.insertCell();
+            cell.textContent = arrayNumerosPossiveis[j];
+            cell.style.padding = '5px 10px';
+            cell.style.fontSize = '40px';
+            cell.style.fontWeight = 'bold';
 
-        if ((j + 1) % 2 === 0) {
-            // Se o número for par, define a cor de fundo como branco
-            cell.style.backgroundColor = '#ffffff';
-        } else {
-            // Se o número for ímpar, define a cor de fundo como cinza claro
-            cell.style.backgroundColor = '#f2f2f2';
+            if ((j + 1) % 2 === 0) {
+                // Se o número for par, define a cor de fundo como branco
+                cell.style.backgroundColor = '#ffffff';
+            } else {
+                // Se o número for ímpar, define a cor de fundo como cinza claro
+                cell.style.backgroundColor = '#f2f2f2';
+            }
         }
     }
-}
-
 }
 
 // Função para gerar um número aleatório
@@ -47,6 +41,7 @@ function gerarNumeroAleatorio() {
     return Math.floor(Math.random() * arrayNumerosPossiveis.length);
 }
 
+// Evento de clique no botão "Sortear"
 sortearBtn.addEventListener('click', () => {
     if (numerosSorteados.size === arrayNumerosPossiveis.length) {
         alert('Todos os números já foram sorteados!');
@@ -57,19 +52,21 @@ sortearBtn.addEventListener('click', () => {
     
     do {
         indiceSorteado = gerarNumeroAleatorio();
-    } while (numerosSorteados.has(arrayNumerosPossiveis[indiceSorteado]));
+    } while (numerosSorteados.has(indiceSorteado));
 
-    numerosSorteados.add(arrayNumerosPossiveis[indiceSorteado]);
-    marcarNumeroSorteado(indiceSorteado);
+    numerosSorteados.add(indiceSorteado);
+    ultimoIndiceSorteado = indiceSorteado;
     atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
 });
 
-novoJogoBtn.addEventListener('click', () => {
-    reiniciarJogo();
-    numeroSorteadoText.innerHTML = ""; // Limpa o conteúdo do elemento
+// Evento de clique no botão "Marcar Resultado"
+marcarResultadoBtn.addEventListener('click', () => {
+    if (ultimoIndiceSorteado !== null) {
+        marcarNumeroSorteado(ultimoIndiceSorteado);
+    } else {
+        alert('Nenhum número foi sorteado ainda.');
+    }
 });
-
-const numeroSorteadoText = document.getElementById('numeroSorteado');
 
 // Função para atualizar o texto com o número sorteado na tela
 function atualizarNumeroSorteado(numero) {
@@ -79,7 +76,7 @@ function atualizarNumeroSorteado(numero) {
                                    "</span>";
 }
 
-
+// Função para marcar o número sorteado na tabela
 function marcarNumeroSorteado(indice) {
     const numeroSorteado = arrayNumerosPossiveis[indice];
     console.log('Marcando número sorteado:', numeroSorteado);
@@ -92,3 +89,6 @@ function marcarNumeroSorteado(indice) {
         }
     }
 }
+
+// Função para iniciar o jogo
+reiniciarJogo();
