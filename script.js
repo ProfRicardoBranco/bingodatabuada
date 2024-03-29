@@ -87,11 +87,43 @@ function gerarNumeroAleatorio() {
 
 // Função para atualizar o texto com o número sorteado na tela
 function atualizarNumeroSorteado(numero) {
-    numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>O número sorteado foi:</span><br/>" + 
-                                   "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
-                                   numero + 
-                                   "</span>";
+    // Função para decompor o número em fatores primos
+    function decomporEmFatoresPrimos(n) {
+        const fatoresPrimos = [];
+        let divisor = 2;
+
+        while (n >= 2) {
+            if (n % divisor === 0) {
+                fatoresPrimos.push(divisor);
+                n = n / divisor;
+            } else {
+                divisor++;
+            }
+        }
+
+        return fatoresPrimos;
+    }
+
+    // Obtém os fatores primos do número sorteado
+    const fatoresPrimos = decomporEmFatoresPrimos(numero);
+
+    // Constrói a string com a multiplicação dos fatores primos
+    let multiplicacaoFatoresPrimos = "";
+    for (let i = 0; i < fatoresPrimos.length; i++) {
+        multiplicacaoFatoresPrimos += fatoresPrimos[i];
+        if (i !== fatoresPrimos.length - 1) {
+            multiplicacaoFatoresPrimos += " * ";
+        }
+    }
+
+    // Exibe a multiplicação dos fatores primos na tela
+    numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação dos fatores primos de " + 
+                                    numero + " é:</span><br/>" + 
+                                    "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
+                                    multiplicacaoFatoresPrimos + 
+                                    "</span>";
 }
+
 
 // Função para marcar o número sorteado na tabela
 function marcarNumeroSorteado(indice) {
