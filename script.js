@@ -57,6 +57,8 @@ sortearBtn.addEventListener('click', () => {
 btnMarcarResultado.addEventListener('click', () => {
     // Muda a variável sorteioHabilitado para true
     sorteioHabilitado = true;
+    sortearBtn.disabled = false; // Habilita o botão de sortear
+    sortearBtn.style.backgroundColor = ''; // Remove a cor de fundo personalizada
     if (ultimoIndiceSorteado !== undefined) {
         marcarNumeroSorteado(ultimoIndiceSorteado);
     } else {
