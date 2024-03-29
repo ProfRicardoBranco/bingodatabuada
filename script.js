@@ -89,9 +89,18 @@ function atualizarNumeroSorteado(numero) {
 
 // Função para marcar o número sorteado na tabela
 function marcarNumeroSorteado(indice) {
-    // Ação de marcar o número na tabela pode ser implementada aqui
-    console.log("O número sorteado foi: " + arrayNumerosPossiveis[indice]);
+    const numeroSorteado = arrayNumerosPossiveis[indice];
+    console.log('Marcando número sorteado:', numeroSorteado);
+    const cells = bingoTable.querySelectorAll('td');
+    for (const cell of cells) {
+        if (parseInt(cell.textContent) === numeroSorteado) {
+            cell.classList.add('marked');
+            cell.style.backgroundColor = '#28a745'; // Altera a cor de fundo da célula
+            break;
+        }
+    }
 }
+
 
 // Função para inicializar o jogo quando a página é carregada
 window.addEventListener('DOMContentLoaded', () => {
