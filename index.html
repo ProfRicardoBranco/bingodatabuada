@@ -26,6 +26,18 @@
         #resultado {
             margin-top: 20px;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        .marked {
+            background-color: yellow;
+        }
     </style>
 </head>
 <body>
@@ -36,7 +48,20 @@
             <button id="sortear">Sortear</button>
             <input type="text" id="resultado" readonly>
         </div>
-        <div class="column" id="numerosContainer"></div>
+        <div class="column" id="numerosContainer">
+            <table id="tabuada">
+                <tr>
+                    <th>&times;2</th>
+                    <th>&times;3</th>
+                    <th>&times;4</th>
+                    <th>&times;5</th>
+                    <th>&times;6</th>
+                    <th>&times;7</th>
+                    <th>&times;8</th>
+                    <th>&times;9</th>
+                </tr>
+            </table>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
