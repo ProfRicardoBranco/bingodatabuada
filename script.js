@@ -35,13 +35,9 @@ sortearBtn.addEventListener('click', () => {
         marcarNumeroSorteado(ultimoIndiceSorteado);
     }
 
-    
     numerosSorteados.add(indiceSorteado);
     ultimoIndiceSorteado = indiceSorteado;
     atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
-
-
-
 
 });
 
@@ -110,7 +106,6 @@ function marcarNumeroSorteado(indice) {
         }
     }
 }
-
 
 // Função para inicializar o jogo quando a página é carregada
 window.addEventListener('DOMContentLoaded', () => {
