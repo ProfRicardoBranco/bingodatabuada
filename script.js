@@ -38,9 +38,6 @@ function reiniciarJogo() {
             }
         }
     }
-
-    // Habilita o botão "Sortear"
-    sortearBtn.disabled = false;
 }
 
 // Função para gerar um número aleatório
@@ -85,9 +82,6 @@ novoJogoBtn.addEventListener('click', () => {
 
 // Evento de clique no botão "Sortear"
 sortearBtn.addEventListener('click', () => {
-    // Desabilita o botão "Sortear"
-    sortearBtn.disabled = true;
-
     // Verifica se todos os números já foram sorteados
     if (numerosSorteados.size === arrayNumerosPossiveis.length) {
         alert('Todos os números já foram sorteados!');
@@ -111,7 +105,7 @@ sortearBtn.addEventListener('click', () => {
 
 // Evento de clique no botão "Marcar Resultado"
 btnMarcarResultado.addEventListener('click', () => {
-    // Habilita o botão "Sortear"
+    // Habilita o botão "Sortear" quando o botão "Marcar Resultado" é clicado
     sortearBtn.disabled = false;
 });
 
