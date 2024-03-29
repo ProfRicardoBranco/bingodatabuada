@@ -63,7 +63,6 @@ th {
 }
 
 .numero-sorteado {
-    
     font-size: 30px; /* Tamanho da fonte padrão */
 }
 
@@ -80,18 +79,16 @@ th {
     padding-top: 30px; /* Adiciona espaçamento entre a imagem e o botão "Sortear" */
 }
 
-
-
 #novoJogoBtn {
     display: block;
     width: calc(100% / 3); /* Define a largura para ocupar um terço da coluna */
     max-width: 200px; /* Define a largura máxima do botão */
-    height: 23px; /* 2/3 da altura do botão "Sortear" */
-    padding: 5px 0; /* Aumenta a altura do botão e remove o padding horizontal */
-    margin: 0 auto; /* Centraliza horizontalmente */
-    font-size: 16px;
-    background-color: #ff9900; /* Cor laranja para o botão "Novo Jogo" */
-    color: black;
+    height: 80px; /* Define a altura do botão */
+    padding: 20px 0; /* Aumenta a altura do botão e remove o padding horizontal */
+    margin: 0 auto 10px auto; /* Centraliza horizontalmente e adiciona espaçamento inferior */
+    font-size: 40px;
+    background-color: #28a745; /* Cor verde para o botão "Novo Jogo" */
+    color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -99,5 +96,25 @@ th {
 }
 
 #novoJogoBtn:hover {
-    background-color: #e68a00; /* Cor laranja mais escura quando passa o mouse */
+    background-color: #218838;
+}
+
+#btnMarcarResultado {
+    display: block;
+    width: calc(100% / 3); /* Define a largura para ocupar um terço da coluna */
+    max-width: 200px; /* Define a largura máxima do botão */
+    height: 80px; /* Define a altura do botão */
+    padding: 20px 0; /* Aumenta a altura do botão e remove o padding horizontal */
+    margin: 0 auto 10px auto; /* Centraliza horizontalmente e adiciona espaçamento inferior */
+    font-size: 40px;
+    background-color: #ffc107; /* Cor amarela para o botão "Marcar Resultado" */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#btnMarcarResultado:hover {
+    background-color: #d39e00;
 }
