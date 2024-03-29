@@ -50,6 +50,7 @@ sortearBtn.addEventListener('click', () => {
     // Desabilita o botão de sortear após o sorteio
     sortearBtn.disabled = true;
     sortearBtn.style.backgroundColor = '#6c757d'; // Cor cinza azulado
+    sortearBtn.style.color = '#6c757d'
     sorteioHabilitado = false; // Desabilita o sorteio
 });
 
@@ -59,6 +60,7 @@ btnMarcarResultado.addEventListener('click', () => {
     sorteioHabilitado = true;
     sortearBtn.disabled = false; // Habilita o botão de sortear
     sortearBtn.style.backgroundColor = ''; // Remove a cor de fundo personalizada
+    sortearBtn.style.color = ''; // Remove a cor de fundo personalizada
     if (ultimoIndiceSorteado !== undefined) {
         marcarNumeroSorteado(ultimoIndiceSorteado);
     } else {
