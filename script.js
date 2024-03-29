@@ -10,6 +10,46 @@ const numeroSorteadoText = document.getElementById('numeroSorteado');
 const numerosSorteados = new Set(); // Conjunto para armazenar números sorteados
 let ultimoIndiceSorteado; // Variável global para armazenar o último índice sorteado
 
+// Evento de clique no botão "Novo Jogo"
+novoJogoBtn.addEventListener('click', () => {
+    reiniciarJogo();
+    numeroSorteadoText.innerHTML = ""; // Limpa o conteúdo do elemento
+});
+
+// Evento de clique no botão "Sortear"
+sortearBtn.addEventListener('click', () => {
+    // Verifica se todos os números já foram sorteados
+    if (numerosSorteados.size === arrayNumerosPossiveis.length) {
+        alert('Todos os números já foram sorteados!');
+        return;
+    }
+
+    let indiceSorteado;
+
+    do {
+        indiceSorteado = gerarNumeroAleatorio();
+    } while (numerosSorteados.has(indiceSorteado));
+
+
+    if (ultimoIndiceSorteado !== undefined) {
+        marcarNumeroSorteado(ultimoIndiceSorteado);
+    }
+
+    numerosSorteados.add(indiceSorteado);
+    ultimoIndiceSorteado = indiceSorteado;
+    atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
+
+});
+
+// Evento de clique no botão "Marcar Resultado"
+btnMarcarResultado.addEventListener('click', () => {
+    if (ultimoIndiceSorteado !== undefined) {
+        marcarNumeroSorteado(ultimoIndiceSorteado);
+    } else {
+        alert('Nenhum número foi sorteado ainda!');
+    }
+});
+
 // Função para reiniciar o jogo
 function reiniciarJogo() {
     // Limpa a tabela
@@ -47,18 +87,28 @@ function gerarNumeroAleatorio() {
 
 // Função para atualizar o texto com o número sorteado na tela
 function atualizarNumeroSorteado(numero) {
-    // Multiplica os fatores primos menores que 10
     let fator1, fator2;
-    do {
-        fator1 = arrayNumerosPossiveis[Math.floor(Math.random() * arrayNumerosPossiveis.length)];
-        fator2 = numero / fator1;
-    } while (fator1 >= 10 || fator2 >= 10);
 
-    numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>O número sorteado foi:</span><br/>" +
-        "<span style='font-size: 70px; font-weight: bold; color: green;'>" +
-        fator1 + " * " + fator2 +
-        "</span>";
+    // Procura por um fator que seja da tabuada de 2 a 9 e menor que 10
+    for (let i = 2; i <= 9; i++) {
+        if (numero % i === 0 && numero / i <= 9) {
+            fator1 = i;
+            fator2 = numero / i;
+            break;
+        }
+    }
+
+    // Exibe a multiplicação dos dois fatores na tela
+    if (fator1 && fator2) {
+        numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação de " + numero + " é:</span><br/>" + 
+                                        "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
+                                        fator1 + " * " + fator2 + 
+                                        "</span>";
+    } else {
+        numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>Não foi possível encontrar fatores menores que 10 da tabuada de 2 a 9 para o número " + numero + ".</span>";
+    }
 }
+
 
 // Função para marcar o número sorteado na tabela
 function marcarNumeroSorteado(indice) {
@@ -73,41 +123,6 @@ function marcarNumeroSorteado(indice) {
         }
     }
 }
-
-// Evento de clique no botão "Novo Jogo"
-novoJogoBtn.addEventListener('click', () => {
-    reiniciarJogo();
-    numeroSorteadoText.innerHTML = ""; // Limpa o conteúdo do elemento
-});
-
-// Evento de clique no botão "Sortear"
-sortearBtn.addEventListener('click', () => {
-    // Verifica se todos os números já foram sorteados
-    if (numerosSorteados.size === arrayNumerosPossiveis.length) {
-        alert('Todos os números já foram sorteados!');
-        return;
-    }
-
-    let indiceSorteado;
-
-    do {
-        indiceSorteado = gerarNumeroAleatorio();
-    } while (numerosSorteados.has(indiceSorteado));
-
-    if (ultimoIndiceSorteado !== undefined) {
-        marcarNumeroSorteado(ultimoIndiceSorteado);
-    }
-
-    numerosSorteados.add(indiceSorteado);
-    ultimoIndiceSorteado = indiceSorteado;
-    atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
-});
-
-// Evento de clique no botão "Marcar Resultado"
-btnMarcarResultado.addEventListener('click', () => {
-    // Habilita o botão "Sortear" quando o botão "Marcar Resultado" é clicado
-    sortearBtn.disabled = false;
-});
 
 // Função para inicializar o jogo quando a página é carregada
 window.addEventListener('DOMContentLoaded', () => {
