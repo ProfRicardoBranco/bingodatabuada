@@ -1,19 +1,15 @@
-const maximoBingo = 75; // Definindo o número máximo do bingo
-const numerosNaTabela = []; // Array para armazenar os números na tabela
-const numerosSorteados = new Set(); // Conjunto para armazenar os números sorteados
+// const maximoBingo = 75; // Não é mais necessário
+// const numerosNaTabela = []; // Array para armazenar os números na tabela
+const arrayNumerosPossiveis = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 7, 14, 21, 28, 35, 42, 49, 56, 63, 70, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 6, 12, 18, 24, 30, 36, 42, 48, 54, 60, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 9, 18, 27, 36, 45, 54, 63, 72, 81, 90];
 
-document.addEventListener('DOMContentLoaded', function() {
-    reiniciarJogo();
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     reiniciarJogo();
+// });
 
 const bingoTable = document.getElementById('bingoTable');
 const sortearBtn = document.getElementById('sortearBtn');
 const novoJogoBtn = document.getElementById('novoJogoBtn');
-
-// Função para verificar se todos os números já foram sorteados
-function todosSorteados() {
-    return numerosSorteados.size === maximoBingo;
-}
+const numerosSorteados = new Set(); // Usando um conjunto para garantir números únicos
 
 // Função para limpar a tabela e reiniciar o jogo
 function reiniciarJogo() {
@@ -23,20 +19,12 @@ function reiniciarJogo() {
     // Limpa o conjunto de números sorteados
     numerosSorteados.clear();
 
-    // Preenche o array com os números na tabela
-    for (let tabuada = 2; tabuada <= 9; tabuada++) {
-        for (let multiplicador = 1; multiplicador <= 10; multiplicador++) {
-            const resultado = tabuada * multiplicador;
-            numerosNaTabela.push(resultado);
-        }
-    }
-
-    // Preenche a tabela
-    for (let i = 0; i < numerosNaTabela.length; i += 10) {
+    // Preenche a tabela com os números possíveis
+    for (let i = 0; i < arrayNumerosPossiveis.length; i += 10) {
         const row = bingoTable.insertRow();
-        for (let j = i; j < i + 10; j++) {
+        for (let j = i; j < i + 10 && j < arrayNumerosPossiveis.length; j++) {
             const cell = row.insertCell();
-            cell.textContent = numerosNaTabela[j];
+            cell.textContent = arrayNumerosPossiveis[j];
             cell.style.padding = '5px 10px';
             cell.style.fontSize = '40px';
             cell.style.fontWeight = 'bold';
@@ -54,12 +42,12 @@ function reiniciarJogo() {
 
 // Função para gerar um número aleatório
 function gerarNumeroAleatorio() {
-    return Math.floor(Math.random() * numerosNaTabela.length);
+    return Math.floor(Math.random() * arrayNumerosPossiveis.length);
 }
 
 // Função para marcar o número sorteado na tabela
 function marcarNumeroSorteado(indice) {
-    const numeroSorteado = numerosNaTabela[indice];
+    const numeroSorteado = arrayNumerosPossiveis[indice];
     const cells = bingoTable.querySelectorAll('td');
     for (const cell of cells) {
         if (parseInt(cell.textContent) === numeroSorteado) {
@@ -71,7 +59,7 @@ function marcarNumeroSorteado(indice) {
 }
 
 sortearBtn.addEventListener('click', () => {
-    if (todosSorteados()) {
+    if (numerosSorteados.size === arrayNumerosPossiveis.length) {
         alert('Todos os números já foram sorteados!');
         return;
     }
@@ -80,11 +68,11 @@ sortearBtn.addEventListener('click', () => {
     
     do {
         indiceSorteado = gerarNumeroAleatorio();
-    } while (numerosSorteados.has(numerosNaTabela[indiceSorteado]));
+    } while (numerosSorteados.has(arrayNumerosPossiveis[indiceSorteado]));
 
-    numerosSorteados.add(numerosNaTabela[indiceSorteado]);
+    numerosSorteados.add(arrayNumerosPossiveis[indiceSorteado]);
     marcarNumeroSorteado(indiceSorteado);
-    atualizarNumeroSorteado(numerosNaTabela[indiceSorteado]);
+    atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
 });
 
 novoJogoBtn.addEventListener('click', () => {
