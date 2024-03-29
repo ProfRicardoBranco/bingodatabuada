@@ -9,6 +9,7 @@ const btnMarcarResultado = document.getElementById('btnMarcarResultado');
 const numeroSorteadoText = document.getElementById('numeroSorteado');
 const numerosSorteados = new Set(); // Conjunto para armazenar números sorteados
 let ultimoIndiceSorteado; // Variável global para armazenar o último índice sorteado
+let sorteioHabilitado = true; // Variável global para controlar se o sorteio está habilitado
 
 // Evento de clique no botão "Novo Jogo"
 novoJogoBtn.addEventListener('click', () => {
@@ -18,6 +19,10 @@ novoJogoBtn.addEventListener('click', () => {
 
 // Evento de clique no botão "Sortear"
 sortearBtn.addEventListener('click', () => {
+    if (!sorteioHabilitado) {
+        return; // Interrompe a execução se o sorteio não estiver habilitado
+    }
+
     // Verifica se todos os números já foram sorteados
     if (numerosSorteados.size === arrayNumerosPossiveis.length) {
         alert('Todos os números já foram sorteados!');
@@ -39,10 +44,14 @@ sortearBtn.addEventListener('click', () => {
     ultimoIndiceSorteado = indiceSorteado;
     atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
 
+    // Desabilita o botão de sortear após o sorteio
+    sorteioHabilitado = false;
 });
 
 // Evento de clique no botão "Marcar Resultado"
 btnMarcarResultado.addEventListener('click', () => {
+    // Muda a variável sorteioHabilitado para true
+    sorteioHabilitado = true;
     if (ultimoIndiceSorteado !== undefined) {
         marcarNumeroSorteado(ultimoIndiceSorteado);
     } else {
