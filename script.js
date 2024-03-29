@@ -1,5 +1,6 @@
 const maximoBingo = 75; // Definindo o número máximo do bingo
 const numerosNaTabela = []; // Array para armazenar os números na tabela
+const numerosSorteados = new Set(); // Conjunto para armazenar os números sorteados
 
 document.addEventListener('DOMContentLoaded', function() {
     reiniciarJogo();
@@ -8,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
 const bingoTable = document.getElementById('bingoTable');
 const sortearBtn = document.getElementById('sortearBtn');
 const novoJogoBtn = document.getElementById('novoJogoBtn');
-const numerosSorteados = new Set(); // Usando um conjunto para garantir números únicos
 
 // Função para verificar se todos os números já foram sorteados
 function todosSorteados() {
