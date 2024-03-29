@@ -16,6 +16,34 @@ novoJogoBtn.addEventListener('click', () => {
     numeroSorteadoText.innerHTML = ""; // Limpa o conteúdo do elemento
 });
 
+// Evento de clique no botão "Sortear"
+sortearBtn.addEventListener('click', () => {
+    // Verifica se todos os números já foram sorteados
+    if (numerosSorteados.size === arrayNumerosPossiveis.length) {
+        alert('Todos os números já foram sorteados!');
+        return;
+    }
+
+    let indiceSorteado;
+
+    do {
+        indiceSorteado = gerarNumeroAleatorio();
+    } while (numerosSorteados.has(indiceSorteado));
+
+    numerosSorteados.add(indiceSorteado);
+    ultimoIndiceSorteado = indiceSorteado;
+    atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
+});
+
+// Evento de clique no botão "Marcar Resultado"
+btnMarcarResultado.addEventListener('click', () => {
+    if (ultimoIndiceSorteado !== undefined) {
+        marcarNumeroSorteado(ultimoIndiceSorteado);
+    } else {
+        alert('Nenhum número foi sorteado ainda!');
+    }
+});
+
 // Função para reiniciar o jogo
 function reiniciarJogo() {
     // Limpa a tabela
@@ -45,30 +73,6 @@ function reiniciarJogo() {
         }
     }
 }
-
-// Evento de clique no botão "Sortear"
-sortearBtn.addEventListener('click', () => {
-    // Verifica se todos os números já foram sorteados
-    if (numerosSorteados.size === arrayNumerosPossiveis.length) {
-        alert('Todos os números já foram sorteados!');
-        return;
-    }
-
-    let indiceSorteado;
-
-    do {
-        indiceSorteado = gerarNumeroAleatorio();
-    } while (numerosSorteados.has(indiceSorteado));
-
-    numerosSorteados.add(indiceSorteado);
-    ultimoIndiceSorteado = indiceSorteado;
-    atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
-});
-
-// Evento de clique no botão "Marcar Resultado"
-btnMarcarResultado.addEventListener('click', () => {
-    marcarNumeroSorteado(ultimoIndiceSorteado);
-});
 
 // Função para gerar um número aleatório
 function gerarNumeroAleatorio() {
