@@ -22,7 +22,7 @@ function reiniciarJogo() {
     // Preenche a tabela com os números possíveis
     for (let i = 0; i < arrayNumerosPossiveis.length; i += 1) {
         const row = bingoTable.insertRow();
-        for (let j = i; j < i + 10 && j < arrayNumerosPossiveis.length; j++) {
+        for (let j = i; j < i + 1 && j < arrayNumerosPossiveis.length; j++) {
             const cell = row.insertCell();
             cell.textContent = arrayNumerosPossiveis[j];
             cell.style.padding = '5px 10px';
