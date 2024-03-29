@@ -42,7 +42,7 @@ sortearBtn.addEventListener('click', () => {
     if (ultimoIndiceSorteado !== null) {
         alert('O número sorteado foi: ' + arrayNumerosPossiveis[ultimoIndiceSorteado]);
     } else {
-        alert('Nenhum número foi sorteado ainda.');
+        //alert('Nenhum número foi sorteado ainda.');
     }
 });
 
