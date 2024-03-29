@@ -125,9 +125,9 @@ function atualizarNumeroSorteado(numero) {
 
     // Exibe a multiplicação dos dois fatores na tela
     if (fator1 && fator2) {
-        numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação de " + 
+        numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação de " + "<br/>" + 
                                         "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
-                                        fator1 + " * " + fator2 + "<br/>" + " é:</span><br/>" 
+                                        fator1 + " * " + fator2 + "<span style='font-size: 30px;'> é:</span><br/>" 
                                         "</span>";
     } else {
         numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>Não foi possível encontrar fatores menores que 10 da tabuada de 2 a 9 para o número " + numero + ".</span>";
