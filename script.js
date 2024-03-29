@@ -39,12 +39,23 @@ function gerarNumeroAleatorio() {
 
 // Evento de clique no botão "Sortear"
 sortearBtn.addEventListener('click', () => {
-    if (ultimoIndiceSorteado !== null) {
-        alert('O número sorteado foi: ' + arrayNumerosPossiveis[ultimoIndiceSorteado]);
-    } else {
-        //alert('Nenhum número foi sorteado ainda.');
+    // Verifica se todos os números já foram sorteados
+    if (numerosSorteados.size === arrayNumerosPossiveis.length) {
+        alert('Todos os números já foram sorteados!');
+        return;
     }
+
+    let indiceSorteado;
+
+    do {
+        indiceSorteado = gerarNumeroAleatorio();
+    } while (numerosSorteados.has(indiceSorteado));
+
+    numerosSorteados.add(indiceSorteado);
+    ultimoIndiceSorteado = indiceSorteado;
+    atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
 });
+
 
 // Evento de clique no botão "Marcar Resultado"
 marcarResultadoBtn.addEventListener('click', () => {
