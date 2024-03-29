@@ -30,13 +30,17 @@ sortearBtn.addEventListener('click', () => {
         indiceSorteado = gerarNumeroAleatorio();
     } while (numerosSorteados.has(indiceSorteado));
 
-    numerosSorteados.add(indiceSorteado);
-    ultimoIndiceSorteado = indiceSorteado;
-    atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
-    
+
     if (ultimoIndiceSorteado !== undefined) {
         marcarNumeroSorteado(ultimoIndiceSorteado);
     }
+
+    
+    numerosSorteados.add(indiceSorteado);
+    ultimoIndiceSorteado = indiceSorteado;
+    atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
+
+
 
 
 });
