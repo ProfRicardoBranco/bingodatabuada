@@ -50,7 +50,7 @@ sortearBtn.addEventListener('click', () => {
     // Desabilita o botão de sortear após o sorteio
     sortearBtn.disabled = true;
     sortearBtn.style.backgroundColor = '#6c757d'; // Cor cinza azulado
-    sortearBtn.style.color = '#5e758a'
+    sortearBtn.style.color = '#E3E5E7'
     sorteioHabilitado = false; // Desabilita o sorteio
 });
 
@@ -125,9 +125,9 @@ function atualizarNumeroSorteado(numero) {
 
     // Exibe a multiplicação dos dois fatores na tela
     if (fator1 && fator2) {
-        numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação de " + numero + " é:</span><br/>" + 
+        numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação de " + 
                                         "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
-                                        fator1 + " * " + fator2 + 
+                                        fator1 + " * " + fator2 + " é:</span><br/>" 
                                         "</span>";
     } else {
         numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>Não foi possível encontrar fatores menores que 10 da tabuada de 2 a 9 para o número " + numero + ".</span>";
