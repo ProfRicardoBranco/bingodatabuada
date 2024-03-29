@@ -87,23 +87,26 @@ function gerarNumeroAleatorio() {
 
 // Função para atualizar o texto com o número sorteado na tela
 function atualizarNumeroSorteado(numero) {
-    // Encontra um fator da tabuada de 2 a 9
-    let fator1;
+    let fator1, fator2;
+
+    // Procura por um fator que seja da tabuada de 2 a 9 e menor que 10
     for (let i = 2; i <= 9; i++) {
-        if (numero % i === 0) {
+        if (numero % i === 0 && numero / i <= 9) {
             fator1 = i;
+            fator2 = numero / i;
             break;
         }
     }
 
-    // Calcula o segundo fator como o resultado da divisão exata do número sorteado pelo primeiro fator
-    const fator2 = numero / fator1;
-
     // Exibe a multiplicação dos dois fatores na tela
-    numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação de " + numero + " é:</span><br/>" + 
-                                    "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
-                                    fator1 + " * " + fator2 + 
-                                    "</span>";
+    if (fator1 && fator2) {
+        numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>A multiplicação de " + numero + " é:</span><br/>" + 
+                                        "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
+                                        fator1 + " * " + fator2 + 
+                                        "</span>";
+    } else {
+        numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>Não foi possível encontrar fatores menores que 10 da tabuada de 2 a 9 para o número " + numero + ".</span>";
+    }
 }
 
 
