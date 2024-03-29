@@ -1,68 +1,57 @@
+// Define os elementos do DOM
 const bingoTable = document.getElementById('bingoTable');
 const sortearBtn = document.getElementById('sortearBtn');
 const novoJogoBtn = document.getElementById('novoJogoBtn');
-const marcarResultadoBtn = document.getElementById('btnMarcarResultado'); // Botão "Marcar Resultado"
+const marcarResultadoBtn = document.getElementById('btnMarcarResultado');
 const numeroSorteadoText = document.getElementById('numeroSorteado');
-const numerosSorteados = new Set(); // Usando um conjunto para garantir números únicos
+
+// Define os números possíveis para o jogo
+const arrayNumerosPossiveis = [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 24, 25, 27, 28, 30, 32, 35, 36, 40, 42, 45, 48, 54, 56, 63, 64, 72, 81];
+const numerosPorLinha = 6; // Quantidade de números por linha
+
 let ultimoIndiceSorteado = null; // Variável global para armazenar o último índice sorteado
 
-// Função para limpar a tabela e reiniciar o jogo
+// Limpa a tabela e reinicia o jogo
 function reiniciarJogo() {
-    // Limpa a tabela
-    bingoTable.innerHTML = '';
-
-    // Limpa o conjunto de números sorteados
-    numerosSorteados.clear();
+    bingoTable.innerHTML = ''; // Limpa a tabela
+    ultimoIndiceSorteado = null; // Reseta o último índice sorteado
 
     // Preenche a tabela com os números possíveis
-    const numerosPorLinha = 6; // Quantidade de números por linha
     for (let i = 0; i < arrayNumerosPossiveis.length; i += numerosPorLinha) {
-        const row = bingoTable.insertRow();
+        const row = bingoTable.insertRow(); // Adiciona uma nova linha à tabela
         for (let j = i; j < i + numerosPorLinha && j < arrayNumerosPossiveis.length; j++) {
-            const cell = row.insertCell();
-            cell.textContent = arrayNumerosPossiveis[j];
-            cell.style.padding = '5px 10px';
-            cell.style.fontSize = '40px';
-            cell.style.fontWeight = 'bold';
+            const cell = row.insertCell(); // Adiciona uma nova célula à linha
+            cell.textContent = arrayNumerosPossiveis[j]; // Define o conteúdo da célula como o número
+            cell.style.padding = '5px 10px'; // Adiciona padding à célula
+            cell.style.fontSize = '40px'; // Define o tamanho da fonte da célula
+            cell.style.fontWeight = 'bold'; // Define o peso da fonte da célula
 
-            if ((j + 1) % 2 === 0) {
-                // Se o número for par, define a cor de fundo como branco
-                cell.style.backgroundColor = '#ffffff';
-            } else {
-                // Se o número for ímpar, define a cor de fundo como cinza claro
-                cell.style.backgroundColor = '#f2f2f2';
-            }
+            // Define a cor de fundo da célula com base na paridade do número
+            cell.style.backgroundColor = (j + 1) % 2 === 0 ? '#ffffff' : '#f2f2f2';
         }
     }
 }
 
-// Função para gerar um número aleatório
+// Função para gerar um número aleatório dentro dos limites do array de números possíveis
 function gerarNumeroAleatorio() {
     return Math.floor(Math.random() * arrayNumerosPossiveis.length);
 }
 
 // Evento de clique no botão "Sortear"
 sortearBtn.addEventListener('click', () => {
-    if (numerosSorteados.size === arrayNumerosPossiveis.length) {
-        alert('Todos os números já foram sorteados!');
-        return;
+    if (ultimoIndiceSorteado !== null) {
+        alert('O número sorteado foi: ' + arrayNumerosPossiveis[ultimoIndiceSorteado]);
+    } else {
+        alert('Nenhum número foi sorteado ainda.');
     }
-
-    let indiceSorteado;
-    
-    do {
-        indiceSorteado = gerarNumeroAleatorio();
-    } while (numerosSorteados.has(indiceSorteado));
-
-    numerosSorteados.add(indiceSorteado);
-    ultimoIndiceSorteado = indiceSorteado;
-    atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
 });
 
 // Evento de clique no botão "Marcar Resultado"
 marcarResultadoBtn.addEventListener('click', () => {
     if (ultimoIndiceSorteado !== null) {
-        marcarNumeroSorteado(ultimoIndiceSorteado);
+        const cell = bingoTable.querySelector('td:nth-child(' + (ultimoIndiceSorteado % numerosPorLinha + 1) + ')');
+        cell.classList.add('marked');
+        cell.style.backgroundColor = '#28a745'; // Altera a cor de fundo da célula
     } else {
         alert('Nenhum número foi sorteado ainda.');
     }
@@ -70,31 +59,9 @@ marcarResultadoBtn.addEventListener('click', () => {
 
 // Evento de clique no botão "Novo Jogo"
 novoJogoBtn.addEventListener('click', () => {
-    reiniciarJogo();
-    numeroSorteadoText.innerHTML = ""; // Limpa o conteúdo do elemento
+    reiniciarJogo(); // Reinicia o jogo
+    numeroSorteadoText.innerHTML = ''; // Limpa o texto do número sorteado
 });
-
-// Função para atualizar o texto com o número sorteado na tela
-function atualizarNumeroSorteado(numero) {
-    numeroSorteadoText.innerHTML = "<span style='font-size: 30px;'>O número sorteado foi:</span><br/>" + 
-                                   "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
-                                   numero + 
-                                   "</span>";
-}
-
-// Função para marcar o número sorteado na tabela
-function marcarNumeroSorteado(indice) {
-    const numeroSorteado = arrayNumerosPossiveis[indice];
-    console.log('Marcando número sorteado:', numeroSorteado);
-    const cells = bingoTable.querySelectorAll('td');
-    for (const cell of cells) {
-        if (parseInt(cell.textContent) === numeroSorteado) {
-            cell.classList.add('marked');
-            cell.style.backgroundColor = '#28a745'; // Altera a cor de fundo da célula
-            break;
-        }
-    }
-}
 
 // Chama a função reiniciarJogo() quando a página é carregada
 document.addEventListener('DOMContentLoaded', reiniciarJogo);
