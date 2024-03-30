@@ -37,11 +37,41 @@ sortearBtn.addEventListener('click', () => {
     registrarMultiplicacao(numeroSorteado);
 });
 
+
+
 // Função para reiniciar o jogo
 function reiniciarJogo() {
+    // Limpa a tabela
+    tabelaNumerosSorteados.innerHTML = '';
+
+    // Limpa o conjunto de números sorteados
     numerosSorteados.clear();
-    linhaAtual = 0; // Reinicia a linha atual
+
+    // Preenche a tabela com os números possíveis
+    const numerosPorLinha = 6; // Quantidade de números por linha
+    for (let i = 0; i < arrayNumerosPossiveis.length; i += numerosPorLinha) {
+        const row = tabelaNumerosSorteados.insertRow();
+        for (let j = i; j < i + numerosPorLinha && j < arrayNumerosPossiveis.length; j++) {
+            const cell = row.insertCell();
+            cell.textContent = arrayNumerosPossiveis[j];
+            cell.style.padding = '5px 10px';
+            cell.style.fontSize = '40px';
+            cell.style.fontWeight = 'bold';
+
+            if ((j + 1) % 2 === 0) {
+                // Se o número for par, define a cor de fundo como branco
+                cell.style.backgroundColor = '#ffffff';
+            } else {
+                // Se o número for ímpar, define a cor de fundo como cinza claro
+                cell.style.backgroundColor = '#f2f2f2';
+            }
+        }
+    }
+
+    // Reinicia a linha atual
+    linhaAtual = 0;
 }
+
 
 // Função para gerar um número aleatório
 function gerarNumeroAleatorio() {
