@@ -34,7 +34,6 @@ sortearBtn.addEventListener('click', () => {
 
 
     numerosSorteados.add(indiceSorteado);
-    ultimoIndiceSorteado = indiceSorteado;
     atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
 
 });
@@ -68,7 +67,7 @@ function atualizarNumeroSorteado(numero) {
 
     // Exibe a multiplicação dos dois fatores na tela
     if (fator1 && fator2) {
-        ultimaMultiplicacao.innerHTML = "<span style='font-size: 30px;'>A multiplicação de " + numero + " é:</span><br/>" + 
+        ultimaMultiplicacao.innerHTML = "<span style='font-size: 30px;'>O resultado de: " +  "</span><br/>" + 
                                         "<span style='font-size: 70px; font-weight: bold; color: green;'>" + 
                                         fator1 + " * " + fator2 + 
                                         "</span>";
