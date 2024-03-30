@@ -7,7 +7,6 @@ const sortearBtn = document.getElementById('sortearBtn');
 const novoJogoBtn = document.getElementById('novoJogoBtn');
 const numeroSorteadoText = document.getElementById('numeroSorteado');
 const numerosSorteados = new Set(); // Conjunto para armazenar números sorteados
-let ultimoIndiceSorteado; // Variável global para armazenar o último índice sorteado
 
 // Evento de clique no botão "Novo Jogo"
 novoJogoBtn.addEventListener('click', () => {
@@ -30,9 +29,9 @@ sortearBtn.addEventListener('click', () => {
     } while (numerosSorteados.has(indiceSorteado));
 
 
-    if (ultimoIndiceSorteado !== undefined) {
+ 
         marcarNumeroSorteado(ultimoIndiceSorteado);
-    }
+
 
     numerosSorteados.add(indiceSorteado);
     ultimoIndiceSorteado = indiceSorteado;
