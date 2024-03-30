@@ -30,7 +30,7 @@ sortearBtn.addEventListener('click', () => {
 
 
  
-        marcarNumeroSorteado(ultimoIndiceSorteado);
+       
 
 
     numerosSorteados.add(indiceSorteado);
@@ -42,7 +42,7 @@ sortearBtn.addEventListener('click', () => {
 // Função para reiniciar o jogo
 function reiniciarJogo() {
     // Limpa a tabela
-    bingoTable.innerHTML = '';
+    //bingoTable.innerHTML = '';
 
     // Limpa o conjunto de números sorteados
     numerosSorteados.clear();
