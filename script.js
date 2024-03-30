@@ -5,14 +5,16 @@ const arrayNumerosPossiveis = [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 24, 2
 const sortearBtn = document.getElementById('sortearBtn');
 const novoJogoBtn = document.getElementById('novoJogoBtn');
 const ultimaMultiplicacao = document.getElementById('ultimaMultiplicacao');
-const logMultiplicacoes = document.getElementById('logMultiplicacoes');
+const tabelaNumerosSorteados = document.getElementById('tabelaNumerosSorteados');
 const numerosSorteados = new Set(); // Conjunto para armazenar números sorteados
+let linhaAtual = 0; // Variável para controlar a linha atual da tabela
 
 // Evento de clique no botão "Novo Jogo"
 novoJogoBtn.addEventListener('click', () => {
     reiniciarJogo();
     ultimaMultiplicacao.innerHTML = ""; // Limpa o conteúdo do elemento
-    logMultiplicacoes.innerHTML = ""; // Limpa o log de multiplicacoes
+    tabelaNumerosSorteados.innerHTML = ""; // Limpa a tabela de números sorteados
+    linhaAtual = 0; // Reinicia a linha atual
 });
 
 // Evento de clique no botão "Sortear"
@@ -30,13 +32,15 @@ sortearBtn.addEventListener('click', () => {
     } while (numerosSorteados.has(indiceSorteado));
 
     numerosSorteados.add(indiceSorteado);
-    atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
-    registrarMultiplicacao(arrayNumerosPossiveis[indiceSorteado]);
+    const numeroSorteado = arrayNumerosPossiveis[indiceSorteado];
+    atualizarNumeroSorteado(numeroSorteado);
+    registrarMultiplicacao(numeroSorteado);
 });
 
 // Função para reiniciar o jogo
 function reiniciarJogo() {
     numerosSorteados.clear();
+    linhaAtual = 0; // Reinicia a linha atual
 }
 
 // Função para gerar um número aleatório
@@ -68,7 +72,7 @@ function atualizarNumeroSorteado(numero) {
     }
 }
 
-// Função para registrar a multiplicação sorteada no log
+// Função para registrar a multiplicação sorteada no log e na tabela
 function registrarMultiplicacao(numero) {
     let fator1, fator2;
     for (let i = 2; i <= 10; i++) {
@@ -81,9 +85,17 @@ function registrarMultiplicacao(numero) {
 
     if (fator1 && fator2) {
         const multiplicacao = fator1 + " * " + fator2;
-        const multiplicacaoItem = document.createElement('p');
-        multiplicacaoItem.textContent = multiplicacao;
-        logMultiplicacoes.appendChild(multiplicacaoItem);
+
+        // Cria uma nova linha na tabela, se necessário
+        if (linhaAtual === 0 || linhaAtual % 6 === 0) {
+            const novaLinha = tabelaNumerosSorteados.insertRow();
+            linhaAtual++;
+        }
+
+        // Insere a multiplicação na próxima célula disponível na tabela
+        const ultimaLinha = tabelaNumerosSorteados.rows[linhaAtual - 1];
+        const novaCelula = ultimaLinha.insertCell();
+        novaCelula.textContent = multiplicacao;
     }
 }
 
