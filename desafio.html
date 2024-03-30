@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bingo da tabuada</title>
+<link rel="stylesheet" href="gpt.css">
+</head>
+<body>
+<h1 style="text-align: center; color: rgb(245, 9, 162);">Desafio da tabuada da Prof. Pri</h1>
+<div class="container">
+    <!-- Coluna com o botão "Novo Jogo" -->
+    <div class="column" id="buttonSelectorColumn">
+        <button id="novoJogoBtn">Novo Jogo</button> <!-- Movido o botão "Novo Jogo" para cima -->
+        <!-- Colocado a logo abaixo do botão "Novo Jogo" -->
+        <!--<img src="LogoSanto.jpg" alt="Logo Santo Antônio" class="logo-imagem"> <!-- Adiciona a imagem -->
+        <!-- Colocado a div dos botões de sorteio abaixo da logo -->
+        <div class="button-selector-wrapper">
+            <button id="sortearBtn">Sortear</button> <!-- Adiciona o botão "Sortear" -->
+            <button id="btnMarcarResultado">Marcar Resultado</button> <!-- Adiciona o botão "Marcar Resultado" -->
+            <p> </p> <!-- Adiciona linha em branco abaixo dos botões -->
+            <p id="numeroSorteado" class="numero-sorteado"></p> <!-- Aqui será exibido o número sorteado -->
+        </div>
+    </div>
+
+    <!-- Coluna com a tabela gerada pelo JavaScript -->
+    <div class="column" id="tableColumn">
+        <table id="bingoTable"></table>
+    </div>
+</div>
+
+<script src="desafio.js"></script>
+
+</body>
+</html>
