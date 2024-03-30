@@ -48,9 +48,12 @@ function reiniciarJogo() {
         const tr = tabelaNumerosSorteados.insertRow();
         for (let j = 0; j < colunas; j++) {
             const cell = tr.insertCell();
-            cell.style.padding = '5px 10px';
-            cell.style.fontSize = '40px';
+            cell.style.padding = '5px'; // Ajuste do padding
+            cell.style.width = '70px'; // Largura das células
+            cell.style.height = '60px'; // Altura das células
+            cell.style.fontSize = '30px';
             cell.style.fontWeight = 'bold';
+            cell.style.textAlign = 'center'; // Centraliza o texto
 
             if ((j + 1) % 2 === 0) {
                 // Se o número for par, define a cor de fundo como branco
