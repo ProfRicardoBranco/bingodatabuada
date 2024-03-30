@@ -11,7 +11,7 @@ const numerosSorteados = new Set(); // Conjunto para armazenar números sorteado
 // Evento de clique no botão "Novo Jogo"
 novoJogoBtn.addEventListener('click', () => {
     reiniciarJogo();
-    numeroSorteadoText.innerHTML = ""; // Limpa o conteúdo do elemento
+    ultimaMultiplicacao.innerHTML = ""; // Limpa o conteúdo do elemento
 });
 
 // Evento de clique no botão "Sortear"
@@ -27,11 +27,6 @@ sortearBtn.addEventListener('click', () => {
     do {
         indiceSorteado = gerarNumeroAleatorio();
     } while (numerosSorteados.has(indiceSorteado));
-
-
- 
-       
-
 
     numerosSorteados.add(indiceSorteado);
     atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
