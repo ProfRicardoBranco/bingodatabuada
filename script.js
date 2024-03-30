@@ -7,6 +7,7 @@ const sortearBtn = document.getElementById('sortearBtn');
 const btnMarcarResultado = document.getElementById('btnMarcarResultado');
 const numeroSorteadoText = document.getElementById('numeroSorteado');
 const logMultiplicacoes = document.getElementById('logMultiplicacoes');
+const ultimaMultiplicacaoText = document.getElementById('ultimaMultiplicacao');
 
 let sorteioHabilitado = true; // Variável global para controlar se o sorteio está habilitado
 
@@ -55,6 +56,9 @@ sortearBtn.addEventListener('click', () => {
         logItem.textContent = multiplicacao;
         logItem.id = `multiplicacao-${indiceSorteado}`;
         logMultiplicacoes.appendChild(logItem);
+
+        // Exibe a última multiplicação sorteada em destaque
+        ultimaMultiplicacaoText.textContent = multiplicacao;
     } else {
         console.error(`Não foi possível encontrar fatores menores que 10 da tabuada de 2 a 9 para o número ${numeroSorteado}.`);
     }
@@ -75,6 +79,7 @@ btnMarcarResultado.addEventListener('click', () => {
 function reiniciarJogo() {
     // Limpa o log de multiplicacoes
     logMultiplicacoes.innerHTML = '';
+    ultimaMultiplicacaoText.textContent = ''; // Limpa o conteúdo do elemento
 }
 
 // Função para gerar um número aleatório
