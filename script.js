@@ -36,9 +36,20 @@ function reiniciarJogo() {
     // Limpa a tabela
     tabelaNumerosSorteados.innerHTML = '';
 
+    // Cria a estrutura da tabela sem preencher com valores
+    const linhas = 10; // Número de linhas
+    const colunas = 6; // Número de colunas
+    for (let i = 0; i < linhas; i++) {
+        const tr = tabelaNumerosSorteados.insertRow();
+        for (let j = 0; j < colunas; j++) {
+            tr.insertCell();
+        }
+    }
+
     // Limpa o conjunto de números sorteados
     numerosSorteados.clear();
 }
+
 
 // Função para gerar um número aleatório
 function gerarNumeroAleatorio() {
