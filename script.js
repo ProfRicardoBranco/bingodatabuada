@@ -2,16 +2,17 @@
 const arrayNumerosPossiveis = [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 24, 25, 27, 28, 30, 32, 35, 36, 40, 42, 45, 48, 54, 56, 63, 64, 72, 81, 50, 60, 70, 80, 90];
 
 // Elementos da interface
+const tabelaNumerosSorteados = document.getElementById('tabelaNumerosSorteados');
 const sortearBtn = document.getElementById('sortearBtn');
 const novoJogoBtn = document.getElementById('novoJogoBtn');
 const ultimaMultiplicacao = document.getElementById('ultimaMultiplicacao');
-const tabelaNumerosSorteados = document.getElementById('tabelaNumerosSorteados');
-
-// Conjunto para armazenar números sorteados
-const numerosSorteados = new Set();
+const numerosSorteados = new Set(); // Conjunto para armazenar números sorteados
 
 // Evento de clique no botão "Novo Jogo"
-novoJogoBtn.addEventListener('click', reiniciarJogo);
+novoJogoBtn.addEventListener('click', () => {
+    reiniciarJogo();
+    ultimaMultiplicacao.innerHTML = ""; // Limpa o conteúdo do elemento
+});
 
 // Evento de clique no botão "Sortear"
 sortearBtn.addEventListener('click', () => {
@@ -29,6 +30,7 @@ sortearBtn.addEventListener('click', () => {
 
     numerosSorteados.add(indiceSorteado);
     atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
+
 });
 
 // Função para reiniciar o jogo
@@ -42,14 +44,24 @@ function reiniciarJogo() {
     for (let i = 0; i < linhas; i++) {
         const tr = tabelaNumerosSorteados.insertRow();
         for (let j = 0; j < colunas; j++) {
-            tr.insertCell();
+            const cell = tr.insertCell();
+            cell.style.padding = '5px 10px';
+            cell.style.fontSize = '40px';
+            cell.style.fontWeight = 'bold';
+
+            if ((j + 1) % 2 === 0) {
+                // Se o número for par, define a cor de fundo como branco
+                cell.style.backgroundColor = '#ffffff';
+            } else {
+                // Se o número for ímpar, define a cor de fundo como cinza claro
+                cell.style.backgroundColor = '#f2f2f2';
+            }
         }
     }
 
     // Limpa o conjunto de números sorteados
     numerosSorteados.clear();
 }
-
 
 // Função para gerar um número aleatório
 function gerarNumeroAleatorio() {
@@ -69,14 +81,16 @@ function atualizarNumeroSorteado(numero) {
         }
     }
 
-    // Exibe a multiplicação dos dois fatores na tela
+    // Exibe a multiplicação dos dois fatores na tabela
     if (fator1 && fator2) {
-        const tr = tabelaNumerosSorteados.insertRow();
-        const cell1 = tr.insertCell();
-        const cell2 = tr.insertCell();
-        cell1.textContent = `${fator1} * ${fator2}`;
-        cell2.textContent = numero;
+        const celulas = tabelaNumerosSorteados.rows[numero % 10].cells; // Obtém as células da linha correspondente ao número
+        celulas[Math.floor(numero / 10)].textContent = fator1 + ' * ' + fator2; // Preenche a célula com a multiplicação
     } else {
-        ultimaMultiplicacao.textContent = `Não foi possível encontrar fatores menores que 10 da tabuada de 2 a 9 para o número ${numero}.`;
+        ultimaMultiplicacao.innerHTML = "<span style='font-size: 30px;'>Não foi possível encontrar fatores menores que 10 da tabuada de 2 a 9 para o número " + numero + ".</span>";
     }
 }
+
+// Função para inicializar o jogo quando a página é carregada
+window.addEventListener('DOMContentLoaded', () => {
+    reiniciarJogo();
+});
