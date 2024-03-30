@@ -38,9 +38,12 @@ function reiniciarJogo() {
     // Limpa a tabela
     tabelaNumerosSorteados.innerHTML = '';
 
+    // Determina o número de linhas e colunas necessárias para a tabela
+    const totalNumeros = arrayNumerosPossiveis.length;
+    const colunas = 6; // Número fixo de colunas
+    const linhas = Math.ceil(totalNumeros / colunas);
+
     // Cria a estrutura da tabela sem preencher com valores
-    const linhas = 10; // Número de linhas
-    const colunas = 6; // Número de colunas
     for (let i = 0; i < linhas; i++) {
         const tr = tabelaNumerosSorteados.insertRow();
         for (let j = 0; j < colunas; j++) {
@@ -83,8 +86,8 @@ function atualizarNumeroSorteado(numero) {
 
     // Exibe a multiplicação dos dois fatores na tabela
     if (fator1 && fator2) {
-        const celulas = tabelaNumerosSorteados.rows[numero % 10].cells; // Obtém as células da linha correspondente ao número
-        celulas[Math.floor(numero / 10)].textContent = fator1 + ' * ' + fator2; // Preenche a célula com a multiplicação
+        const celulas = tabelaNumerosSorteados.rows[Math.floor(numero / 10)].cells; // Obtém as células da linha correspondente ao número
+        celulas[numero % 10].textContent = fator1 + ' * ' + fator2; // Preenche a célula com a multiplicação
     } else {
         ultimaMultiplicacao.innerHTML = "<span style='font-size: 30px;'>Não foi possível encontrar fatores menores que 10 da tabuada de 2 a 9 para o número " + numero + ".</span>";
     }
