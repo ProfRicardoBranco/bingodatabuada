@@ -55,18 +55,18 @@ function reiniciarJogo() {
             cell.style.fontWeight = 'bold';
             cell.style.textAlign = 'center'; // Centraliza o texto
 
-            const indice = i * colunas + j;
-            if (indice < totalNumeros) {
-                if (indice % 2 === 0) {
-                    // Se o índice for par, define a cor de fundo como branco
-                    cell.style.backgroundColor = '#ffffff';
-                } else {
-                    // Se o índice for ímpar, define a cor de fundo como cinza claro
-                    cell.style.backgroundColor = '#f2f2f2';
-                }
+            if ((i * colunas + j) % 2 === 0) {
+                // Se o número da célula for par, define a cor de fundo como branco
+                cell.style.backgroundColor = '#ffffff';
+            } else {
+                // Se o número da célula for ímpar, define a cor de fundo como cinza claro
+                cell.style.backgroundColor = '#f2f2f2';
             }
         }
     }
+
+    // Limpa o array de números sorteados
+    numerosSorteados.length = 0;
 }
 
 // Função para gerar um número aleatório
@@ -74,12 +74,12 @@ function gerarNumeroAleatorio() {
     return Math.floor(Math.random() * arrayNumerosPossiveis.length);
 }
 
-// Função para atualizar o texto com a fatoração do número sorteado na tela
+// Função para atualizar o texto com o número sorteado na tela
 function atualizarNumeroSorteado(numero) {
     let fator1, fator2;
 
-    // Procura por dois fatores menores ou iguais a 10 que multiplicados resultam no número sorteado
-    for (let i = 2; i <= 10; i++) {
+    // Procura por um fator que seja da tabuada de 2 a 9 e menor que 10
+    for (let i = 2; i <= 9; i++) {
         if (numero % i === 0 && numero / i <= 10) {
             fator1 = i;
             fator2 = numero / i;
@@ -87,16 +87,11 @@ function atualizarNumeroSorteado(numero) {
         }
     }
 
-    // Exibe a fatoração do número sorteado na tabela
-    if (fator1 && fator2) {
-        const linha = Math.floor(numerosSorteados.length / 6); // Obtém o índice da linha correspondente ao número
-        const coluna = numerosSorteados.length % 6; // Obtém o índice da coluna correspondente ao número
-        const cell = tabelaNumerosSorteados.rows[linha].cells[coluna]; // Obtém a célula correspondente à linha e coluna
-
-        cell.textContent = fator1 + ' * ' + fator2; // Preenche a célula com a fatoração
-    } else {
-        ultimaMultiplicacao.innerHTML = "<span style='font-size: 30px;'>Não foi possível encontrar dois fatores menores ou iguais a 10 que multiplicados resultam em " + numero + ".</span>";
-    }
+    // Exibe a fatoração na tabela
+    const linha = Math.floor(numerosSorteados.length / 6);
+    const coluna = numerosSorteados.length % 6;
+    const celula = tabelaNumerosSorteados.rows[linha].cells[coluna];
+    celula.textContent = `${fator1} * ${fator2}`;
 }
 
 // Função para inicializar o jogo quando a página é carregada
