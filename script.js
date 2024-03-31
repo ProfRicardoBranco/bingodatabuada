@@ -74,7 +74,7 @@ function gerarNumeroAleatorio() {
 function atualizarNumeroSorteado(indice) {
     const numero = arrayNumerosPossiveis[indice];
     const linha = Math.floor(numerosSorteados.length / 6); // Calcula a linha da tabela
-    const coluna = numerosSorteados.length % 6; // Calcula a coluna da tabela
+    const coluna = (numerosSorteados.length % 6)-1; // Calcula a coluna da tabela
     const cell = tabelaNumerosSorteados.rows[linha].cells[coluna]; // Obtém a célula correspondente
     let fator1, fator2;
 
