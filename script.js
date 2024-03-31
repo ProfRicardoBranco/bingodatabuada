@@ -55,12 +55,15 @@ function reiniciarJogo() {
             cell.style.fontWeight = 'bold';
             cell.style.textAlign = 'center'; // Centraliza o texto
 
-            if ((i * colunas + j) % 2 === 0) {
-                // Se a soma do índice da linha com o índice da coluna for par, define a cor de fundo como branco
-                cell.style.backgroundColor = '#ffffff';
-            } else {
-                // Se a soma do índice da linha com o índice da coluna for ímpar, define a cor de fundo como cinza claro
-                cell.style.backgroundColor = '#f2f2f2';
+            const indice = i * colunas + j;
+            if (indice < totalNumeros) {
+                if (indice % 2 === 0) {
+                    // Se o índice for par, define a cor de fundo como branco
+                    cell.style.backgroundColor = '#ffffff';
+                } else {
+                    // Se o índice for ímpar, define a cor de fundo como cinza claro
+                    cell.style.backgroundColor = '#f2f2f2';
+                }
             }
         }
     }
