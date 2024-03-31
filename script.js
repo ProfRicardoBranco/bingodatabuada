@@ -88,7 +88,7 @@ function atualizarNumeroSorteado(numero) {
     }
 
     // Exibe a fatoração na tabela
-    const linha = Math.floor(numerosSorteados.length / 6);
+    const linha = Math.floor((numerosSorteados.length-1) / 6);
     const coluna = (numerosSorteados.length-1) % 6;
     const celula = tabelaNumerosSorteados.rows[linha].cells[coluna];
     celula.textContent = `${fator1} * ${fator2}`;
