@@ -54,7 +54,13 @@ function reiniciarJogo() {
             cell.style.fontSize = '30px';
             cell.style.fontWeight = 'bold';
             cell.style.textAlign = 'center'; // Centraliza o texto
-            cell.textContent = ''; // Inicialmente sem valor
+            
+            // Define as cores alternadas
+            if ((i + j) % 2 === 0) {
+                cell.style.backgroundColor = '#f2f2f2'; // Cor de fundo cinza claro
+            } else {
+                cell.style.backgroundColor = '#ffffff'; // Cor de fundo branca
+            }
         }
     }
 }
@@ -64,13 +70,29 @@ function gerarNumeroAleatorio() {
     return Math.floor(Math.random() * arrayNumerosPossiveis.length);
 }
 
-// Função para atualizar o texto com o número sorteado na tabela
+// Função para atualizar o texto com a fatoração do número sorteado na tabela
 function atualizarNumeroSorteado(indice) {
     const numero = arrayNumerosPossiveis[indice];
     const linha = Math.floor(numerosSorteados.length / 6); // Calcula a linha da tabela
     const coluna = numerosSorteados.length % 6; // Calcula a coluna da tabela
     const cell = tabelaNumerosSorteados.rows[linha].cells[coluna]; // Obtém a célula correspondente
-    cell.textContent = numero; // Preenche a célula com o número sorteado
+    let fator1, fator2;
+
+    // Procura por um fator que seja da tabuada de 2 a 9 e menor que 10
+    for (let i = 2; i <= 10; i++) {
+        if (numero % i === 0 && numero / i <= 10) {
+            fator1 = i;
+            fator2 = numero / i;
+            break;
+        }
+    }
+
+    // Exibe a fatoração do número na tabela
+    if (fator1 && fator2) {
+        cell.textContent = `${fator1} * ${fator2}`; // Preenche a célula com a fatoração
+    } else {
+        ultimaMultiplicacao.innerHTML = "<span style='font-size: 30px;'>Não foi possível encontrar fatores menores ou iguais a 10 da tabuada de 2 a 9 para o número " + numero + ".</span>";
+    }
 }
 
 // Função para inicializar o jogo quando a página é carregada
