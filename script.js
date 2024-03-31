@@ -6,7 +6,7 @@ const tabelaNumerosSorteados = document.getElementById('tabelaNumerosSorteados')
 const sortearBtn = document.getElementById('sortearBtn');
 const novoJogoBtn = document.getElementById('novoJogoBtn');
 const ultimaMultiplicacao = document.getElementById('ultimaMultiplicacao');
-const numerosSorteados = []; // Array para armazenar os números sorteados
+const numerosSorteados = []; // Array para armazenar números sorteados
 
 // Evento de clique no botão "Novo Jogo"
 novoJogoBtn.addEventListener('click', () => {
@@ -29,7 +29,7 @@ sortearBtn.addEventListener('click', () => {
     } while (numerosSorteados.includes(indiceSorteado));
 
     numerosSorteados.push(indiceSorteado);
-    atualizarNumeroSorteado(indiceSorteado);
+    atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
 
 });
 
@@ -38,7 +38,7 @@ function reiniciarJogo() {
     // Limpa a tabela
     tabelaNumerosSorteados.innerHTML = '';
 
-    // Determina o número de colunas necessárias para a tabela
+    // Determina o número de linhas e colunas necessárias para a tabela
     const totalNumeros = arrayNumerosPossiveis.length;
     const colunas = 6; // Número fixo de colunas
     const linhas = Math.ceil(totalNumeros / colunas);
@@ -54,12 +54,13 @@ function reiniciarJogo() {
             cell.style.fontSize = '30px';
             cell.style.fontWeight = 'bold';
             cell.style.textAlign = 'center'; // Centraliza o texto
-            
-            // Define as cores alternadas
+
             if ((i + j) % 2 === 0) {
-                cell.style.backgroundColor = '#f2f2f2'; // Cor de fundo cinza claro
+                // Se a soma do índice da linha com o índice da coluna for par, define a cor de fundo como branco
+                cell.style.backgroundColor = '#ffffff';
             } else {
-                cell.style.backgroundColor = '#ffffff'; // Cor de fundo branca
+                // Se a soma do índice da linha com o índice da coluna for ímpar, define a cor de fundo como cinza claro
+                cell.style.backgroundColor = '#f2f2f2';
             }
         }
     }
@@ -70,15 +71,11 @@ function gerarNumeroAleatorio() {
     return Math.floor(Math.random() * arrayNumerosPossiveis.length);
 }
 
-// Função para atualizar o texto com a fatoração do número sorteado na tabela
-function atualizarNumeroSorteado(indice) {
-    const numero = arrayNumerosPossiveis[indice];
-    const linha = Math.floor(numerosSorteados.length / 6); // Calcula a linha da tabela
-    const coluna = (numerosSorteados.length % 6)-1; // Calcula a coluna da tabela
-    const cell = tabelaNumerosSorteados.rows[linha].cells[coluna]; // Obtém a célula correspondente
+// Função para atualizar o texto com a fatoração do número sorteado na tela
+function atualizarNumeroSorteado(numero) {
     let fator1, fator2;
 
-    // Procura por um fator que seja da tabuada de 2 a 9 e menor que 10
+    // Procura por dois fatores menores ou iguais a 10 que multiplicados resultam no número sorteado
     for (let i = 2; i <= 10; i++) {
         if (numero % i === 0 && numero / i <= 10) {
             fator1 = i;
@@ -87,11 +84,15 @@ function atualizarNumeroSorteado(indice) {
         }
     }
 
-    // Exibe a fatoração do número na tabela
+    // Exibe a fatoração do número sorteado na tabela
     if (fator1 && fator2) {
-        cell.textContent = `${fator1} * ${fator2}`; // Preenche a célula com a fatoração
+        const linha = Math.floor(numerosSorteados.length / 6); // Obtém o índice da linha correspondente ao número
+        const coluna = numerosSorteados.length % 6; // Obtém o índice da coluna correspondente ao número
+        const cell = tabelaNumerosSorteados.rows[linha].cells[coluna]; // Obtém a célula correspondente à linha e coluna
+
+        cell.textContent = fator1 + ' * ' + fator2; // Preenche a célula com a fatoração
     } else {
-        ultimaMultiplicacao.innerHTML = "<span style='font-size: 30px;'>Não foi possível encontrar fatores menores ou iguais a 10 da tabuada de 2 a 9 para o número " + numero + ".</span>";
+        ultimaMultiplicacao.innerHTML = "<span style='font-size: 30px;'>Não foi possível encontrar dois fatores menores ou iguais a 10 que multiplicados resultam em " + numero + ".</span>";
     }
 }
 
