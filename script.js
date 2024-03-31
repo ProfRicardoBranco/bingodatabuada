@@ -93,7 +93,7 @@ function atualizarNumeroSorteado(numero) {
     const celula = tabelaNumerosSorteados.rows[linha].cells[coluna];
     celula.textContent = `${fator1} * ${fator2}`;
 
-    console.log(`Linha: ${linha}, Coluna: ${coluna}, Valor: ${celula.textContent}`);
+    console.log(`sorteados: ${numerosSorteados.length},`Linha: ${linha}, Coluna: ${coluna}, Valor: ${celula.textContent}`);
 }
 
 
