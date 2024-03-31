@@ -6,7 +6,7 @@ const tabelaNumerosSorteados = document.getElementById('tabelaNumerosSorteados')
 const sortearBtn = document.getElementById('sortearBtn');
 const novoJogoBtn = document.getElementById('novoJogoBtn');
 const ultimaMultiplicacao = document.getElementById('ultimaMultiplicacao');
-const numerosSorteados = new Set(); // Conjunto para armazenar números sorteados
+const numerosSorteados = []; // Array para armazenar os números sorteados
 
 // Evento de clique no botão "Novo Jogo"
 novoJogoBtn.addEventListener('click', () => {
@@ -17,7 +17,7 @@ novoJogoBtn.addEventListener('click', () => {
 // Evento de clique no botão "Sortear"
 sortearBtn.addEventListener('click', () => {
     // Verifica se todos os números já foram sorteados
-    if (numerosSorteados.size === arrayNumerosPossiveis.length) {
+    if (numerosSorteados.length === arrayNumerosPossiveis.length) {
         alert('Todos os números já foram sorteados!');
         return;
     }
@@ -26,10 +26,10 @@ sortearBtn.addEventListener('click', () => {
 
     do {
         indiceSorteado = gerarNumeroAleatorio();
-    } while (numerosSorteados.has(indiceSorteado));
+    } while (numerosSorteados.includes(indiceSorteado));
 
-    numerosSorteados.add(indiceSorteado);
-    atualizarNumeroSorteado(arrayNumerosPossiveis[indiceSorteado]);
+    numerosSorteados.push(indiceSorteado);
+    atualizarNumeroSorteado(indiceSorteado);
 
 });
 
@@ -38,7 +38,7 @@ function reiniciarJogo() {
     // Limpa a tabela
     tabelaNumerosSorteados.innerHTML = '';
 
-    // Determina o número de linhas e colunas necessárias para a tabela
+    // Determina o número de colunas necessárias para a tabela
     const totalNumeros = arrayNumerosPossiveis.length;
     const colunas = 6; // Número fixo de colunas
     const linhas = Math.ceil(totalNumeros / colunas);
@@ -54,19 +54,9 @@ function reiniciarJogo() {
             cell.style.fontSize = '30px';
             cell.style.fontWeight = 'bold';
             cell.style.textAlign = 'center'; // Centraliza o texto
-
-            if ((j + 1) % 2 === 0) {
-                // Se o número for par, define a cor de fundo como branco
-                cell.style.backgroundColor = '#ffffff';
-            } else {
-                // Se o número for ímpar, define a cor de fundo como cinza claro
-                cell.style.backgroundColor = '#f2f2f2';
-            }
+            cell.textContent = ''; // Inicialmente sem valor
         }
     }
-
-    // Limpa o conjunto de números sorteados
-    numerosSorteados.clear();
 }
 
 // Função para gerar um número aleatório
@@ -74,26 +64,13 @@ function gerarNumeroAleatorio() {
     return Math.floor(Math.random() * arrayNumerosPossiveis.length);
 }
 
-// Função para atualizar o texto com o número sorteado na tela
-function atualizarNumeroSorteado(numero) {
-    let fator1, fator2;
-
-    // Procura por um fator que seja da tabuada de 2 a 9 e menor que 10
-    for (let i = 2; i <= 10; i++) {
-        if (numero % i === 0 && numero / i <= 9) {
-            fator1 = i;
-            fator2 = numero / i;
-            break;
-        }
-    }
-
-    // Exibe a multiplicação dos dois fatores na tabela
-    if (fator1 && fator2) {
-        const celulas = tabelaNumerosSorteados.rows[Math.floor(numero / 10)].cells; // Obtém as células da linha correspondente ao número
-        celulas[numero % 10].textContent = fator1 + ' * ' + fator2; // Preenche a célula com a multiplicação
-    } else {
-        ultimaMultiplicacao.innerHTML = "<span style='font-size: 30px;'>Não foi possível encontrar fatores menores que 10 da tabuada de 2 a 9 para o número " + numero + ".</span>";
-    }
+// Função para atualizar o texto com o número sorteado na tabela
+function atualizarNumeroSorteado(indice) {
+    const numero = arrayNumerosPossiveis[indice];
+    const linha = Math.floor(numerosSorteados.length / 6); // Calcula a linha da tabela
+    const coluna = numerosSorteados.length % 6; // Calcula a coluna da tabela
+    const cell = tabelaNumerosSorteados.rows[linha].cells[coluna]; // Obtém a célula correspondente
+    cell.textContent = numero; // Preenche a célula com o número sorteado
 }
 
 // Função para inicializar o jogo quando a página é carregada
