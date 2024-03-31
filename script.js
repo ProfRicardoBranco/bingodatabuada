@@ -96,6 +96,7 @@ function atualizarNumeroSorteado(numero) {
     console.log(`Linha: ${linha}, Coluna: ${coluna}, Valor: ${celula.textContent}`);
 }
 
+
 // Função para inicializar o jogo quando a página é carregada
 window.addEventListener('DOMContentLoaded', () => {
     reiniciarJogo();
